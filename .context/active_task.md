@@ -1,60 +1,27 @@
-# 当前任务: 待定 (等待新指令)
+# 当前任务: 优化项目与 Bug 修复
 
 ## 🎯 目标 (Goal)
 
-[等待用户下达新任务]
+1. 修复重复翻译注入 (✅)
+2. 修复代码块排除翻译 (✅)
+3. 优化 GitHub 列表布局与样式复用 (✅)
+4. 修复翻译覆盖率问题 (✅) - 解决过度过滤
 
 ## 🚦 当前进度 (Status)
 
-🏁 **阶段三：BadgerDB 缓存集成已完成 (2026-01-21)**
-
-已准备好进入下一阶段开发。
+✅ 已放宽过滤逻辑并降低翻译门槛，大幅提升了页面内容的翻译覆盖率。
 
 ## 📝 执行计划 (Execution Plan)
 
-[等待新任务规划]
+- [x] **Bug 修复：防止重复翻译注入**
+- [x] **Bug 修复：排除代码块/文件内容翻译**
+- [x] **优化：GitHub 文件列表布局修复**
+- [x] **Bug 修复：解决过度过滤导致的漏译**
+  - [x] 移除对 `react-partial` 等核心容器的屏蔽。
+  - [x] 将翻译字数门槛从 10 降至 2。
+- [ ] **项目优化**
 
 ## 🧠 状态与暂存区 (Scratchpad)
 
-### ✅ 已完成里程碑
-
-**阶段一：MVP 版本 (2026-01-21)**
-
-- 端到端翻译功能跑通 ✅
-
-**阶段二：代码清理与模块化 (2026-01-21)**
-
-- 后端重构为三层架构 (handler/service/middleware)
-- API Key 改为 `.env` 环境变量管理
-- 插件样式分离、占位符保留方案
-
-**阶段三：BadgerDB 缓存 (2026-01-21)**
-
-- 集成 BadgerDB v4.9.0 嵌入式 KV 数据库
-- 缓存 Key: MD5(segment_text)
-- 响应时间: **7.5s → 0.5ms** (提速 14,000 倍!)
-
-### � 当前目录结构
-
-```
-backend/
-├── main.go
-├── config/config.go
-├── data/cache/          # BadgerDB 数据 (已 gitignore)
-└── internal/
-    ├── cache/cache.go   # [NEW] 缓存模块
-    ├── handler/
-    ├── service/
-    └── middleware/
-
-extension/
-├── content.js (含占位符逻辑)
-├── styles/content.css
-└── manifest.json
-```
-
-### ⚠️ 下一步建议
-
-1. **添加用户设置页面** - 目标语言、API Key 可配置
-2. **优化 Prompt** - 提升翻译质量与术语保留
-3. **错误处理** - 网络异常、API 限流提示
+- 策略权衡：虽然放开了容器屏蔽，但保留了 `extractWithPlaceholders` 中的 `script/style` 清理逻辑，依然能防止 JSON 乱码。
+- 覆盖率：现在短语和 README 区域应能正常翻译。

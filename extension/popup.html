@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=300" />
+    <title>MyImmersive 设置</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>🌐 MyImmersive</h1>
+
+      <form id="settings-form">
+        <!-- 目标语言 -->
+        <div class="form-group">
+          <label for="targetLang">目标语言</label>
+          <select id="targetLang">
+            <option value="zh-CN">简体中文</option>
+            <option value="zh-TW">繁體中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+          </select>
+        </div>
+
+        <!-- 后端 URL -->
+        <div class="form-group">
+          <label for="apiUrl">后端 URL</label>
+          <input type="text" id="apiUrl" placeholder="http://localhost:8080" />
+        </div>
+
+        <!-- 自动翻译 -->
+        <div class="form-group toggle-group">
+          <label for="autoTranslate">页面加载自动翻译</label>
+          <input type="checkbox" id="autoTranslate" />
+        </div>
+
+        <!-- 保存按钮 -->
+        <button type="submit" class="btn-save">保存设置</button>
+      </form>
+
+      <div id="status" class="status"></div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

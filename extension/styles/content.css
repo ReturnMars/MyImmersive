@@ -2,9 +2,9 @@
 
 /* 翻译内容标识 - 继承原样式，只加轻量标识 */
 .my-trans-translated {
-  border-left: 3px solid #68d391 !important; /* 品牌绿色左边框 */
-  padding-left: 12px !important;
-  opacity: 0.85 !important; /* 略微透明区分 */
+  border-left: 2px solid #68d391 !important;
+  padding-left: 10px !important;
+  opacity: 0.9;
 }
 
 /* 可选：暗色主题适配 */
@@ -40,7 +40,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 #my-trans-control:hover {
@@ -56,4 +57,52 @@
   font-size: 11px;
   opacity: 0.8;
   font-weight: normal;
+}
+
+/* Toast 提示 */
+.my-trans-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2147483647;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  animation: my-trans-toast-in 0.3s ease;
+}
+
+.my-trans-toast-error {
+  background: linear-gradient(135deg, #c53030 0%, #9b2c2c 100%);
+  color: white;
+}
+
+.my-trans-toast-warning {
+  background: linear-gradient(135deg, #d69e2e 0%, #b7791f 100%);
+  color: white;
+}
+
+.my-trans-toast-success {
+  background: linear-gradient(135deg, #38a169 0%, #276749 100%);
+  color: white;
+}
+
+.my-trans-toast-hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+@keyframes my-trans-toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }

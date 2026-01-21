@@ -84,17 +84,30 @@ func (t *Translator) Translate(ctx context.Context, segments []string, pageURL s
 	return TranslationResult{Translations: results}
 }
 
-// translateWithAI 调用 AI API 翻译
 func (t *Translator) translateWithAI(ctx context.Context, segments []string, pageURL string) TranslationResult {
-	systemPrompt := `你是一个翻译引擎。请将提供的文本段落翻译为中文。
-规则：
-1. 必须保留对应的段落数量。
-2. 每个翻译段落之间必须使用 "---" 独立成行作为分隔符。
-3. 保持专业术语、代码变量、品牌名称原样不翻译。
-4. 仅返回翻译内容，不要添加解释。`
+	systemPrompt := `你是一位专业的翻译专家，精通中英互译，擅长技术文档和网页内容的本地化翻译。
 
+翻译规则：
+1. **段落对应**：输入 N 个段落，必须输出 N 个对应的翻译段落，使用 "---" 独立成行作为分隔符。
+2. **自然流畅**：译文应符合中文表达习惯，避免生硬的直译和"机翻腔"。
+3. **保留原样**：
+   - 代码、变量名、函数名 (如 useState, onClick)
+   - 品牌名 (如 React, Vue, Tailwind, shadcn)
+   - 专有名词和缩写 (如 API, CSS, HTML, JSON)
+   - 占位符 (如 {{0}}, {{1}} - 这些必须原样保留不翻译)
+4. **术语一致**：同一术语在全文保持翻译一致性。
+5. **格式保留**：保持原文的格式结构，如列表项、标题层级等。
+6. **仅输出译文**：不要添加任何解释、注释或额外内容。
+
+示例：
+输入: "The useState hook returns a stateful value."
+输出: "useState Hook 返回一个有状态的值。"`
+
+	// 针对特定网站的优化
 	if strings.Contains(pageURL, "github.com") {
-		systemPrompt += "\n5. 针对 GitHub：保留 PR, Issue, Commit 等术语。"
+		systemPrompt += "\n\n额外规则 (GitHub)：保留 Pull Request, Issue, Commit, Branch, Fork, Star 等术语。"
+	} else if strings.Contains(pageURL, "developer.") || strings.Contains(pageURL, "docs.") {
+		systemPrompt += "\n\n额外规则 (技术文档)：保持技术准确性，优先使用业界通用译法。"
 	}
 
 	userPrompt := strings.Join(segments, "\n---\n")
