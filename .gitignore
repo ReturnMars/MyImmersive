@@ -1,0 +1,12 @@
+tmp
+go.sum
+
+# 敏感配置 (不要提交!)
+backend/.env
+
+# IDE
+.vscode/
+.idea/
+
+# 系统文件
+.DS_Store
