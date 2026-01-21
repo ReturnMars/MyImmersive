@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	"MyImmersive/backend/internal/cache"
 	"MyImmersive/backend/internal/service"
 
 	"github.com/gin-gonic/gin"
@@ -26,9 +27,9 @@ type TranslateHandler struct {
 }
 
 // NewTranslateHandler 创建处理器实例
-func NewTranslateHandler() *TranslateHandler {
+func NewTranslateHandler(c cache.Cache) *TranslateHandler {
 	return &TranslateHandler{
-		translator: service.NewTranslator(),
+		translator: service.NewTranslator(c),
 	}
 }
 

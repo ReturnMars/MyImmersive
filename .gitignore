@@ -4,6 +4,9 @@ go.sum
 # 敏感配置 (不要提交!)
 backend/.env
 
+# 缓存数据
+backend/data/
+
 # IDE
 .vscode/
 .idea/
